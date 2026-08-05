@@ -25,22 +25,32 @@ def Home():
 
 
 
-@app.route("/login",methods = ["POST","GET"])
+@app.route("/login", methods=["GET", "POST"])
 def Login():
+
     if request.method == "GET":
         return render_template("login.html")
-    elif request.method == "POST":
-        data = request.form
-        print(data)
-        if(data["username"] == "admin" and data["password"] == "admin"):
-            session["login"] = 1
-            return redirect("/")
-    return "Error"
+
+    username = request.form.get("username", "").strip()
+    password = request.form.get("password", "").strip()
+
+    # Demo credentials
+    if username == "admin" and password == "password":
+        session["login"] = True
+        return redirect("/")
+
+    # Invalid login
+    return render_template(
+        "login.html",
+        Flag=True,
+        Navigate=False,
+        mymessage="❌ Invalid username or password. Please use the demo credentials provided."
+    )
 
 
 @app.route("/logout")
 def logout():
-    session.pop("login")
+    session.pop("login", None)
     return redirect("/login")
 
 
