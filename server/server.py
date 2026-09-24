@@ -11,7 +11,7 @@ model = joblib.load(os.path.join(BASE_DIR, "models", "model1.pkl"))
 feature_list = joblib.load(os.path.join(BASE_DIR, "models", "features.pkl"))
 
 app = Flask(__name__)
-app.secret_key = 'asd84a5d6d6sd5a6dq4asc4d6wed4s65c5d4ed6as5sad46d56as5d56d56qd6eedwe4e8d'
+app.secret_key = 'os.environ["SECRET_KEY"]'
 
 @app.route("/")
 def Home():
