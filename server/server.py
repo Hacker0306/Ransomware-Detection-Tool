@@ -11,7 +11,7 @@ model = joblib.load(os.path.join(BASE_DIR, "models", "model1.pkl"))
 feature_list = joblib.load(os.path.join(BASE_DIR, "models", "features.pkl"))
 
 app = Flask(__name__)
-app.secret_key = 'os.environ["SECRET_KEY"]'
+app.secret_key = os.environ["SECRET_KEY"]
 
 @app.route("/")
 def Home():
@@ -89,8 +89,7 @@ def Predict():
 
     # Extract features and predict
     extracted_features = extract_features(filepath)
-    input_df = pd.DataFrame([extracted_features])
-    input_df = input_df.reindex(columns=feature_list, fill_value=0)
+    input_df = pd.DataFrame([extracted_features], columns=feature_list)
 
     pred = int(model.predict(input_df)[0])
     message = ("⚠️ Ransomware attack detected! Disconnect the device and start incident response."
@@ -122,8 +121,7 @@ def PredictApi():
         return {"error": f"File error: {e}"}, 500
 
     extracted_features = extract_features(filepath)
-    input_df = pd.DataFrame([extracted_features])
-    input_df = input_df.reindex(columns=feature_list, fill_value=0)
+     input_df = pd.DataFrame([extracted_features], columns=feature_list)
 
     pred = int(model.predict(input_df)[0])
     message = ("⚠️ Ransomware detected! Immediate action required."
