@@ -47,7 +47,7 @@
               {% if session.output %}
                   <div class="mt-4 p-4 bg-dark text-white rounded">
                       <h4>Scan Result:</h4>
-                      <p><strong>Status:</strong> {{ 'Ransomware Detected' if session.output.value == 1 else 'Clean' }}</p>
+                      <p><strong>Status:</strong> {{ 'Ransomware Detected' if session.output.value == 0 else 'Clean' }}</p>
                       <p><strong>Message:</strong> {{ session.output.message }}</p>
                   </div>
               {% endif %}              
@@ -58,10 +58,10 @@
     <div class="container">
         <h1 class="display-4 mb-5 text-center text-white">Output</h1>
         {% if 'output' in data %}
-            {% if data.output.value == 0 %}
+            {% if data.output.value == 1 %}
             <h1 class="display-6 mb-5 text-center text-success fw-bold text-white">Not Detected</h1>
             <p class="text-center text-white">{{ data.output.message }}</p>
-            {% elif data.output.value == 1 %}
+            {% elif data.output.value == 0 %}
             <h1 class="display-6 mb-5 text-center text-danger fw-bold text-white">Detected</h1>
             <p class="text-center text-white">{{ data.output.message }}</p>
             {% endif %}
