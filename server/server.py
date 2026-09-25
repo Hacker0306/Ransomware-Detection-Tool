@@ -93,6 +93,7 @@ def Predict():
     print("DEBUG:", input_df.to_dict(orient="records")[0])
 
     pred = int(model.predict(input_df)[0])
+    print("DEBUG raw pred:", pred)
     message = ("⚠️ Ransomware attack detected! Disconnect the device and start incident response."
                if pred == 1 else
                "✅ No ransomware detected. Keep your system up-to-date and monitor it regularly.")
