@@ -121,7 +121,7 @@ def PredictApi():
         return {"error": f"File error: {e}"}, 500
 
     extracted_features = extract_features(filepath)
-     input_df = pd.DataFrame([extracted_features], columns=feature_list)
+    input_df = pd.DataFrame([extracted_features], columns=feature_list)
 
     pred = int(model.predict(input_df)[0])
     message = ("⚠️ Ransomware detected! Immediate action required."
