@@ -90,6 +90,7 @@ def Predict():
     # Extract features and predict
     extracted_features = extract_features(filepath)
     input_df = pd.DataFrame([extracted_features], columns=feature_list)
+    print("DEBUG:", input_df.to_dict(orient="records")[0])
 
     pred = int(model.predict(input_df)[0])
     message = ("⚠️ Ransomware attack detected! Disconnect the device and start incident response."
