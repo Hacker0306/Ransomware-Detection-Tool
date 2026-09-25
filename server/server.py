@@ -90,12 +90,10 @@ def Predict():
     # Extract features and predict
     extracted_features = extract_features(filepath)
     input_df = pd.DataFrame([extracted_features], columns=feature_list)
-    print("DEBUG:", input_df.to_dict(orient="records")[0])
 
     pred = int(model.predict(input_df)[0])
-    print("DEBUG raw pred:", pred)
     message = ("⚠️ Ransomware attack detected! Disconnect the device and start incident response."
-               if pred == 1 else
+               if pred == 0 else
                "✅ No ransomware detected. Keep your system up-to-date and monitor it regularly.")
 
     session["output"] = {"value": pred, "message": message}
@@ -125,14 +123,14 @@ def PredictApi():
     extracted_features = extract_features(filepath)
     input_df = pd.DataFrame([extracted_features], columns=feature_list)
 
-    pred = int(model.predict(input_df)[0])
+     pred = int(model.predict(input_df)[0])
     message = ("⚠️ Ransomware detected! Immediate action required."
-               if pred == 1 else
+               if pred == 0 else
                "✅ File is safe. No ransomware detected.")
     
     return {
         "value": pred,
-        "output": "Attack Detected" if pred == 1 else "Not Detected",
+        "output": "Attack Detected" if pred == 0 else "Not Detected",
         "message": message
     }
 
